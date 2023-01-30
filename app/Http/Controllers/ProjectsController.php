@@ -42,20 +42,19 @@ class ProjectsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Projects  $projects
+     * @param  \App\Models\Projects $projects
      * @return \Illuminate\Http\Response
      */
-    // public function show(Projects $projects)
-    // {
-    //     return $projects;
-    // }
-
-    public function show($id)
+    public function show(Projects $projects)
     {
-       $Projects = Projects::find($id);
-        return $Projects;
+        return $projects;
     }
 
+    // public function show($id)
+    // {
+    //    $projects = Projects::find($id);
+    //     return $projects;
+    // }
     /**
      * Update the specified resource in storage.
      *
@@ -63,23 +62,24 @@ class ProjectsController extends Controller
      * @param  \App\Models\Projects  $projects
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Projects $projects)
+    public function update(Request $request, $id)
     {
+        $projects = Projects::find($id);
 
         $request->validate([
-            'nombre' => 'required',
-            'email' => 'required'
+            'title' => 'required',
+            'link' => 'required',
+            'image_path' => 'required'
         ]);
 
-        //$persona->nombre = $request->input('nombre');
-        //$persona->email = $request->input('email');
+        $projects->title = $request->title;
+        $projects->link = $request->link;
+        $projects->image_path = $request->image_path;
 
-        $projects->nombre = $request->nombre;
-        $projects->email = $request->email;
         $projects->update();
-
         return $projects;
     }
+
 
 
     /**
