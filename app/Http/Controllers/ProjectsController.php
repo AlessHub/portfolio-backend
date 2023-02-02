@@ -20,9 +20,9 @@ class ProjectsController extends Controller
             $destinationPath = 'images/featureds/';
             $fileName = time() . '-' . $file->getClientOriginalName();
             $uploadSucces = $request->file('image_path')->move($destinationPath, $fileName);
-            $projects->url_img  = $destinationPath . $fileName;
+            $projects->image_path  = $destinationPath . $fileName;
         } else {
-            $projects->url_img  = 'noFoto';
+            $projects->image_path  = 'noFoto';
         }
 
         Projects::create($request->validated());
