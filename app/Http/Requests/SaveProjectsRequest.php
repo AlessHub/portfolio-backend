@@ -32,7 +32,7 @@ class SaveProjectsRequest extends FormRequest
         return [
             'title' => ['required'],
             'link' => ['required'],
-            'image_path' => ['required']
+            'image_path' => []
         ];
     }
 }

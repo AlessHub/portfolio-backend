@@ -15,6 +15,15 @@ class ProjectsController extends Controller
     public function store(SaveProjectsRequest $request)
     {
         $projects = new Projects();
+        if ($request->hasFile('image_path')) {
+            $file = $request->file('image_path');
+            $destinationPath = 'images/featureds/';
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $uploadSucces = $request->file('image_path')->move($destinationPath, $fileName);
+            $projects->url_img  = $destinationPath . $fileName;
+        } else {
+            $projects->url_img  = 'noFoto';
+        }
 
         Projects::create($request->validated());
 
@@ -27,8 +36,9 @@ class ProjectsController extends Controller
      * @param  \App\Models\Projects $projects
      * @return \Illuminate\Http\Response
      */
-    public function show(Projects $projects)
+    public function show(Projects $projects, $id)
     {
+        $projects = Projects::find($id);
         return $projects;
     }
 
