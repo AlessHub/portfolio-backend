@@ -46,7 +46,7 @@ class ProjectsTest extends TestCase
         $data = [
             'title' => 'Test Project 2',
             'link' => 'https://www.test2.com',
-            'image_path' => "test_image_2.png"
+            'image_path' => "Zz"
         ];
 
         $this->post('api/projects', $data);
@@ -54,7 +54,7 @@ class ProjectsTest extends TestCase
         $this->assertDatabaseHas('projects', [
             'title' => 'Test Project 2',
             'link' => 'https://www.test2.com',
-            'image_path' => 'test_image_2.png',
+            'image_path' => 'NoFoto',
         ]);
     }
 

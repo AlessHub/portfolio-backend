@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Projects;
 use App\Http\Requests\SaveProjectsRequest;
+use DateTime;
 
 class ProjectsController extends Controller
 {
@@ -15,18 +16,18 @@ class ProjectsController extends Controller
     public function store(SaveProjectsRequest $request)
     {
         $projects = new Projects();
+    
+
         if ($request->hasFile('image_path')) {
-            $file = $request->file('image_path');
-            $destinationPath = 'images/featureds/';
-            $fileName = time() . '-' . $file->getClientOriginalName();
-            $uploadSucces = $request->file('image_path')->move($destinationPath, $fileName);
-            $projects->image_path  = $destinationPath . $fileName;
+            $path = $request->file('image_path')->store('images/featureds', 'public');
+            $projects->image_path  = $path;
         } else {
             $projects->image_path  = 'noFoto';
         }
-
-        Projects::create($request->validated());
-
+        $projects->title = $request->title;
+        $projects->link = $request->link;
+        $projects->save($request->validated());
+    
         return $projects;
     }
 
