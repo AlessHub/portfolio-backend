@@ -27,6 +27,7 @@ class ProjectsController extends Controller
         $projects->title = $request->title;
         $projects->link = $request->link;
         $projects->save($request->validated());
+        // Projects::create no funciona porque crea archivos temporales en vez de subir el path de la foto
     
         return $projects;
     }

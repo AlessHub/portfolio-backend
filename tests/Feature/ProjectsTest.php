@@ -26,14 +26,12 @@ class ProjectsTest extends TestCase
     /** @test */
     public function index_returns_all_projects()
     {
-        // creamos y guardamos
+        
         Projects::factory()->count(3)->create();
         $expectedProjects = Projects::all();
 
-        // y guardamos la respuesta a comparar
         $response = $this->get('api/projects');
 
-        // verificacion
         $response->assertSuccessful();
         $response->assertJsonCount($expectedProjects->count());
         $response->assertJson($expectedProjects->toArray());
